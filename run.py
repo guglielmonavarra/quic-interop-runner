@@ -62,7 +62,6 @@ def parse_args():
     parser.add_argument(
         "-ca",
         "--ccalgo",
-        nargs="+",
         default="bbr",
         type=str,
         help="congestion algo.",
