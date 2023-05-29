@@ -594,6 +594,7 @@ class InteropRunner:
             result, value, error_code = self._run_test(
                 server=scheduled_test.server_name,
                 client=scheduled_test.client_name,
+                ccalgo=self._ccalgo,
                 log_dir_prefix=log_dir_prefix,
                 test=scheduled_test.test,
             )
