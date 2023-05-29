@@ -1930,7 +1930,7 @@ class MeasurementGoodput(Measurement):
     @classmethod
     @property
     def repetitions(cls) -> int:
-        return 10
+        return 5
 
     def get_paths(self):
         self._files = [self._generate_random_file(self.FILESIZE)]

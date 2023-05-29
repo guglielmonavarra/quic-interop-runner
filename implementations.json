@@ -1,6 +1,6 @@
 { 
   "ngtcp2": {
-    "image": "navarraguglielmo/picoquic:latest",
+    "image": "navarraguglielmo/ngtcp2:latest",
     "url": "https://github.com/ngtcp2/ngtcp2",
     "role": "both"
   },  
