@@ -125,7 +125,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-
+    print(args.ccalgo)
     for replace in args.replace:
         try:
             name, image = replace.split("=")
