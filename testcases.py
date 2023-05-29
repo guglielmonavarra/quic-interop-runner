@@ -2290,5 +2290,6 @@ CCALGO: list[Type[str]] = [
     "reno",
     "cubic",
     "bbr",
+    "bbr2",
     "fast",
 ]
