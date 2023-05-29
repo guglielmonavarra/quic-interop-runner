@@ -60,6 +60,14 @@ def parse_args():
         help="test cases.",
     )
     parser.add_argument(
+        "-ca",
+        "--ccalgo",
+        nargs="+",
+        default="bbr",
+        choices=["reno", "cubic", "bbr", "fast"],
+        help="congestion algo.",
+    )
+    parser.add_argument(
         "-r",
         "--replace",
         nargs="*",
@@ -179,6 +187,7 @@ def main():
         clients=args.client or client_implementations,
         tests=tests,
         measurements=measurements,
+        ccalgo=args.ccalgo,
         output=args.json,
         debug=args.debug,
         log_dir=args.log_dir,

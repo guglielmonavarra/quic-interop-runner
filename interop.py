@@ -45,6 +45,7 @@ class InteropRunner:
         clients: list[str],
         tests: list[Type[testcases.TestCase]],
         measurements: list[Type[testcases.Measurement]],
+        ccalgo: str,
         output: Optional[Path],
         debug: bool = False,
         save_files: bool = False,
@@ -65,6 +66,7 @@ class InteropRunner:
 
         self._tests = tests
         self._measurements = measurements
+        self._ccalgo = ccalgo
         self._servers = servers
         self._clients = clients
 
@@ -173,6 +175,7 @@ class InteropRunner:
             exec_result = self._deployment.run_compliance_check(
                 implementation=implementation,
                 role=role,
+                ccalgo=self._ccalgo,
                 local_certs_path=Path(certs_dir.name),
                 local_www_path=Path(www_dir.name),
                 local_downloads_path=Path(downloads_dir.name),
@@ -228,6 +231,7 @@ class InteropRunner:
         self,
         server: str,
         client: str,
+        ccalgo: str,
         log_dir_prefix: Optional[str],
         test: Type[testcases.TestCase],
     ) -> tuple[TestResult, Optional[float], Optional[ErrorCode]]:
@@ -307,6 +311,7 @@ class InteropRunner:
             local_downloads_path=Path(testcase.download_dir),
             client=self._result.implementations[client],
             server=self._result.implementations[server],
+            ccalgo=ccalgo,
             request_urls=reqs,
             version=testcases.QUIC_VERSION,
         )

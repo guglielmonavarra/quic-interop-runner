@@ -2284,3 +2284,11 @@ MEASUREMENTS: list[Type[Measurement]] = [
     MeasurementAstra,
     MeasurementEutelsat,
 ]
+
+
+CCALGO: list[Type[str]] = [
+    "reno",
+    "cubic",
+    "bbr",
+    "fast",
+]

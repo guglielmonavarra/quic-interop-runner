@@ -270,6 +270,7 @@ class Deployment:
             Role.SERVER: None,
             Role.CLIENT: None,
         }
+        
         self._docker_clis = dict[str, docker.DockerClient]()
         self._stage_status_cv = threading.Condition()
         self.docker_host_urls = CONFIG.docker_host_urls
@@ -557,6 +558,7 @@ class Deployment:
         self,
         implementation: Implementation,
         role: Role,
+        ccalgo: str,
         local_certs_path: Path,
         local_www_path: Path,
         local_downloads_path: Path,
@@ -582,6 +584,7 @@ class Deployment:
                 role=role,
                 local_certs_path=local_certs_path,
                 testcase=testcase_name,
+                ccalgo=ccalgo,
                 version=version,
                 request_urls=DEFAULT_REQUEST_URL,
                 local_www_path=local_www_path if role == Role.SERVER else None,
@@ -599,7 +602,7 @@ class Deployment:
         return result
 
     def run_debug_setup(
-        self, client_name="quic-go", server_name="quic-go", testcase="transfer"
+        self, client_name="quic-go", server_name="quic-go", testcase="transfer", ccalgo="bbr"
     ):
         local_debug_path = Path("./.debug").absolute()
         local_certs_path = local_debug_path / "certs"
@@ -639,6 +642,7 @@ class Deployment:
             role=Role.SERVER,
             local_certs_path=local_certs_path,
             testcase=testcase.testname(Perspective.SERVER),
+            ccalgo=ccalgo,
             version=QUIC_VERSION,
             local_www_path=local_www_path,
             entrypoint=["sleep", str(timeout)],
@@ -676,6 +680,7 @@ class Deployment:
         local_downloads_path: Path,
         client: Implementation,
         server: Implementation,
+        ccalgo: str,
         request_urls: str,
         version: int,
     ) -> ExecResult:
@@ -697,6 +702,7 @@ class Deployment:
                 local_downloads_path=local_downloads_path,
                 client=client,
                 server=server,
+                ccalgo=ccalgo,
                 request_urls=request_urls,
                 version=version,
             )
@@ -712,6 +718,7 @@ class Deployment:
                 local_downloads_path=local_downloads_path,
                 client=client,
                 server=server,
+                ccalgo=ccalgo,
                 request_urls=request_urls,
                 version=version,
             )
@@ -729,6 +736,7 @@ class Deployment:
         local_downloads_path: Path,
         client: Implementation,
         server: Implementation,
+        ccalgo: str,
         request_urls: str,
         version: int,
     ) -> ExecResult:
@@ -748,6 +756,7 @@ class Deployment:
                     role=Role.SERVER,
                     local_certs_path=local_certs_path,
                     testcase=testcase.testname(Perspective.SERVER),
+                    ccalgo=ccalgo,
                     version=version,
                     request_urls=request_urls,
                     local_www_path=local_www_path,
@@ -759,6 +768,7 @@ class Deployment:
                     role=Role.CLIENT,
                     local_certs_path=local_certs_path,
                     testcase=testcase.testname(Perspective.CLIENT),
+                    ccalgo=ccalgo,
                     version=version,
                     request_urls=request_urls,
                     local_download_path=local_downloads_path,
@@ -857,6 +867,7 @@ class Deployment:
         local_downloads_path: Path,
         client: Implementation,
         server: Implementation,
+        ccalgo: str,
         request_urls: str,
         version: int,
     ) -> ExecResult:
@@ -896,6 +907,7 @@ class Deployment:
                 server_ip=server_ip,
                 local_certs_path=local_certs_path,
                 testcase=testcase.testname(Perspective.SERVER),
+                ccalgo=ccalgo,
                 version=version,
                 request_urls=request_urls,
                 local_www_path=local_www_path,
@@ -909,6 +921,7 @@ class Deployment:
                 server_ip=server_ip,
                 local_certs_path=local_certs_path,
                 testcase=testcase.testname(Perspective.CLIENT),
+                ccalgo=ccalgo,
                 version=version,
                 request_urls=request_urls,
                 local_www_path=local_www_path,
@@ -1236,6 +1249,7 @@ class Deployment:
         role: Role,
         local_certs_path: Path,
         testcase: str,
+        ccalgo: str,
         version: int,
         request_urls: Optional[str] = None,
         local_www_path: Optional[Path] = None,
@@ -1251,6 +1265,7 @@ class Deployment:
             "VERSION": hex(version),
             "SSLKEYLOGFILE": SSLKEYLOG_FILE,
             "QLOGDIR": QLOG_DIR,
+            "CCALGO": ccalgo,
         }
 
         if role == Role.CLIENT:
@@ -1284,6 +1299,7 @@ class Deployment:
         role: Role,
         local_certs_path: Path,
         testcase: str,
+        ccalgo: str,
         version: int,
         server_ip: IPAddress,
         server_port: int,
@@ -1298,6 +1314,7 @@ class Deployment:
             "VERSION": hex(version),
             "SSLKEYLOGFILE": SSLKEYLOG_FILE,
             "QLOGDIR": QLOG_DIR,
+            "CCALGO": ccalgo,
         }
 
         if role == Role.CLIENT:
