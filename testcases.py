@@ -2276,13 +2276,13 @@ TESTCASES: list[Type[TestCase]] = [
 
 MEASUREMENTS: list[Type[Measurement]] = [
     MeasurementGoodput,
-    MeasurementCrossTraffic,
+    #MeasurementCrossTraffic,
     MeasurementTerrestrial,
     MeasurementSatellite,
     MeasurementSatelliteLoss,
-    MeasurementStarlink,
-    MeasurementAstra,
-    MeasurementEutelsat,
+    #MeasurementStarlink,
+    #MeasurementAstra,
+    #MeasurementEutelsat,
 ]
 
 
