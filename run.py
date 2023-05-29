@@ -64,7 +64,7 @@ def parse_args():
         "--ccalgo",
         nargs="+",
         default="bbr",
-        choices=["reno", "cubic", "bbr", "bbr2", "fast"],
+        type=str,
         help="congestion algo.",
     )
     parser.add_argument(
