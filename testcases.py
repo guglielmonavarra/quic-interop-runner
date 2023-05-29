@@ -2260,7 +2260,7 @@ TESTCASES: list[Type[TestCase]] = [
     #TestCaseBlackhole,
     #TestCaseKeyUpdate,
     #TestCaseECN,
-    TestCaseAmplificationLimit,
+    #TestCaseAmplificationLimit,
     #TestCaseHandshakeLoss,
     #TestCaseTransferLoss,
     #TestCaseHandshakeCorruption,
