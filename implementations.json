@@ -1,12 +1,13 @@
 { 
   "ngtcp2": {
-    "image": "ghcr.io/ngtcp2/ngtcp2-interop:latest",
+    "image": "navarraguglielmo/picoquic:latest",
     "url": "https://github.com/ngtcp2/ngtcp2",
     "role": "both"
   },  
   "picoquic": {
-    "image": "privateoctopus/picoquic:latest",
+    "image": "navarraguglielmo/picoquic:latest",
     "url": "https://github.com/private-octopus/picoquic",
     "role": "both"
   }
 }
+ 
