@@ -1997,9 +1997,10 @@ class MeasurementCrossTraffic(MeasurementGoodput):
 
 class MeasurementTerrestrial(MeasurementGoodput):
     FILESIZE = 10 * FileSize.MiB
-    data_rate = 20 * DataRate.MBPS
+    data_rate = 10 * DataRate.MBPS
     rtt = 15 * Time.MS
     
+
     @classmethod
     @property
     def name(cls):
@@ -2023,7 +2024,7 @@ class MeasurementTerrestrial(MeasurementGoodput):
         return " ".join(
             (
                 "simple-p2p",
-                f"--delay={cls.rtt / Time.MS / 2:.0f}ms",
+                f"--delay={cls.rtt // Time.MS }ms",
                 f"--bandwidth={cls.data_rate // DataRate.MBPS}Mbps",
                 "--queue=25",
             )
