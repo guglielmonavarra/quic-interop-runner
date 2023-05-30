@@ -1998,7 +1998,8 @@ class MeasurementCrossTraffic(MeasurementGoodput):
 class MeasurementTerrestrial(MeasurementGoodput):
     FILESIZE = 10 * FileSize.MiB
     data_rate = 20 * DataRate.MBPS
-
+    rtt = 15 * Time.MS
+    
     @classmethod
     @property
     def name(cls):
@@ -2013,6 +2014,22 @@ class MeasurementTerrestrial(MeasurementGoodput):
     @property
     def desc(cls):
         return f"Measures connection goodput over a {int(cls.data_rate // DataRate.MBPS)} Mbps link."
+
+    @classmethod
+    @property
+    def scenario(cls) -> str:
+        """Scenario for the ns3 simulator."""
+
+        return " ".join(
+            (
+                "simple-p2p",
+                f"--delay={cls.rtt / Time.MS / 2:.0f}ms",
+                f"--bandwidth={cls.data_rate // DataRate.MBPS}Mbps",
+                "--queue=25",
+            )
+        )
+
+
 
 
 class MeasurementSatellite(MeasurementTerrestrial):

@@ -8,6 +8,11 @@
     "image": "navarraguglielmo/picoquic:latest",
     "url": "https://github.com/private-octopus/picoquic",
     "role": "both"
+  },
+  "xquic": {
+    "image": "navarraguglielmo/xquic:latest",
+    "url": "https://github.com/alibaba/xquic",
+    "role": "both"
   }
 }
  
